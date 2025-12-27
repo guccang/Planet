@@ -8,6 +8,9 @@ public class Planet : MonoBehaviour
     public int resolution = 10;
     public bool autoUpdate = true;
 
+    public enum FaceRenderMask {ALL,Top,Bottom,Left,Right,Front,Back};
+    public FaceRenderMask faceRenderMask;
+
     [SerializeField,HideInInspector]
     public MeshFilter[] meshFilters;
 
@@ -53,6 +56,8 @@ public class Planet : MonoBehaviour
             }
 
             terrainFaces[i] = new TerrainFace(shapeGenerate,meshFilters[i].sharedMesh,resolution,directors[i]);
+            bool faceRender = faceRenderMask == FaceRenderMask.ALL || (int)(faceRenderMask-1) == i;
+            meshFilters[i].gameObject.SetActive(faceRender);
         }
     }
 
@@ -74,8 +79,10 @@ public class Planet : MonoBehaviour
 
     public void GenerateMesh(){
         if(autoUpdate){
-        foreach(TerrainFace face in terrainFaces){
-            face.ConstructMesh();
+        for(int i=0;i<6;i++){
+            if(meshFilters[i].gameObject.activeSelf){
+                terrainFaces[i].ConstructMesh();
+            }
         }
         }
     }
