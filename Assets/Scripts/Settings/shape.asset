@@ -12,4 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2433faa90118e444586f183c96df1b29, type: 3}
   m_Name: shape
   m_EditorClassIdentifier: 
-  planetRaidus: 1
+  planetRadius: 2.77
+  noiseLayers:
+  - enable: 1
+    useFirstLayerAsMask: 0
+    noiseSettings:
+      filterType: 0
+      simpleNoiseSettings:
+        strength: 0.08
+        numLayers: 4
+        baseRoughness: 1.18
+        roughness: 2.36
+        persistence: 0.51
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 1.18
+      ridgidNoiseSettings:
+        strength: 1
+        numLayers: 1
+        baseRoughness: 1
+        roughness: 2
+        persistence: 0.5
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0
+        weightMultipliter: 0
+  - enable: 1
+    useFirstLayerAsMask: 1
+    noiseSettings:
+      filterType: 1
+      simpleNoiseSettings:
+        strength: 9.69
+        numLayers: 5
+        baseRoughness: 2.38
+        roughness: 3.08
+        persistence: 2.78
+        centre: {x: 0, y: -3.66, z: 0}
+        minValue: 1.51
+      ridgidNoiseSettings:
+        strength: 1.97
+        numLayers: 5
+        baseRoughness: 2.13
+        roughness: 3.92
+        persistence: 0.77
+        centre: {x: -0.09, y: -1.02, z: 0}
+        minValue: 0.12
+        weightMultipliter: 0.47
+  - enable: 0
+    useFirstLayerAsMask: 0
+    noiseSettings:
+      filterType: 0
+      simpleNoiseSettings:
+        strength: 1
+        numLayers: 1
+        baseRoughness: 1
+        roughness: 2
+        persistence: 0.5
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0
+      ridgidNoiseSettings:
+        strength: 1
+        numLayers: 1
+        baseRoughness: 1
+        roughness: 2
+        persistence: 0.5
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0
+        weightMultipliter: 0
