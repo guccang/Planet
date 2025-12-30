@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2433faa90118e444586f183c96df1b29, type: 3}
   m_Name: shape
   m_EditorClassIdentifier: 
-  planetRadius: 2.77
+  planetRadius: 5.39
   noiseLayers:
   - enable: 1
     useFirstLayerAsMask: 0
     noiseSettings:
       filterType: 0
       simpleNoiseSettings:
-        strength: 0.08
-        numLayers: 4
-        baseRoughness: 1.18
-        roughness: 2.36
-        persistence: 0.51
+        strength: 0.09
+        numLayers: 3
+        baseRoughness: 0.93
+        roughness: 2.22
+        persistence: 0.39
+        centre: {x: 0.91, y: -2.16, z: 0.6}
+        minValue: 1
+      ridgidNoiseSettings:
+        strength: 0.28
+        numLayers: 5
+        baseRoughness: 0.85
+        roughness: 0.74
+        persistence: 0.1
         centre: {x: 0, y: 0, z: 0}
         minValue: 1.18
-      ridgidNoiseSettings:
-        strength: 1
-        numLayers: 1
-        baseRoughness: 1
-        roughness: 2
-        persistence: 0.5
-        centre: {x: 0, y: 0, z: 0}
-        minValue: 0
         weightMultipliter: 0
   - enable: 1
     useFirstLayerAsMask: 1
@@ -48,32 +48,32 @@ MonoBehaviour:
         centre: {x: 0, y: -3.66, z: 0}
         minValue: 1.51
       ridgidNoiseSettings:
-        strength: 1.97
-        numLayers: 5
-        baseRoughness: 2.13
-        roughness: 3.92
-        persistence: 0.77
+        strength: 1.29
+        numLayers: 2
+        baseRoughness: 0.96
+        roughness: 1.37
+        persistence: 0.12
         centre: {x: -0.09, y: -1.02, z: 0}
-        minValue: 0.12
-        weightMultipliter: 0.47
-  - enable: 0
-    useFirstLayerAsMask: 0
+        minValue: 0
+        weightMultipliter: 0.56
+  - enable: 1
+    useFirstLayerAsMask: 1
     noiseSettings:
       filterType: 0
       simpleNoiseSettings:
-        strength: 1
-        numLayers: 1
-        baseRoughness: 1
+        strength: 1.18
+        numLayers: 5
+        baseRoughness: 1.66
         roughness: 2
-        persistence: 0.5
+        persistence: 0.71
         centre: {x: 0, y: 0, z: 0}
         minValue: 0
       ridgidNoiseSettings:
-        strength: 1
-        numLayers: 1
-        baseRoughness: 1
-        roughness: 2
-        persistence: 0.5
-        centre: {x: 0, y: 0, z: 0}
-        minValue: 0
-        weightMultipliter: 0
+        strength: 2.42
+        numLayers: 4
+        baseRoughness: 1.16
+        roughness: 3.71
+        persistence: 2.27
+        centre: {x: 0, y: -1.15, z: 0}
+        minValue: 0.42
+        weightMultipliter: 0.36

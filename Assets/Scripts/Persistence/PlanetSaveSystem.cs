@@ -5,54 +5,59 @@ using System.Linq;
 
 public static class PlanetSaveSystem
 {
-    // 存档文件夹路径
-    public static string SaveFolder => Path.Combine(Application.persistentDataPath, "PlanetSaves");
+    // 获取 Assets/Resources/PlanetSaves 的物理路径
+    // 注意：Path.Combine 会处理不同系统的斜杠问题
+    public static string SaveFolder = Path.Combine(Application.dataPath, "Resources", "PlanetSaves");
 
     public static void SavePlanet(Planet planet, string saveName)
     {
-        // 1. 确保文件夹存在
+        // 1. 确保目录存在
         if (!Directory.Exists(SaveFolder))
         {
             Directory.CreateDirectory(SaveFolder);
         }
 
-        // 2. 打包数据
+        // 2. 序列化数据
         PlanetData data = new PlanetData(planet, saveName);
-        string json = JsonUtility.ToJson(data, true); // true = 格式化输出，方便阅读
+        string json = JsonUtility.ToJson(data, true);
 
         // 3. 写入文件
         string filePath = Path.Combine(SaveFolder, saveName + ".json");
         File.WriteAllText(filePath, json);
-        
+
+        // 4. 重要：在编辑器中保存后刷新，否则 Resources.Load 可能找不到新文件
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.Refresh();
+#endif
         Debug.Log($"Planet saved to: {filePath}");
     }
 
     public static PlanetData LoadPlanetData(string saveName)
     {
-        string filePath = Path.Combine(SaveFolder, saveName + ".json");
+        // 尝试从 Resources 加载（这样在打包后也能读取）
+        // 注意：Resources.Load 不需要文件后缀名
+        TextAsset targetJson = Resources.Load<TextAsset>("PlanetSaves/" + saveName);
 
-        if (File.Exists(filePath))
+        if (targetJson != null)
         {
-            string json = File.ReadAllText(filePath);
-            return JsonUtility.FromJson<PlanetData>(json);
+            return JsonUtility.FromJson<PlanetData>(targetJson.text);
         }
         else
         {
-            Debug.LogError("Save file not found: " + filePath);
+            Debug.LogError("Save file not found in Resources: " + saveName);
             return null;
         }
     }
 
-    // 获取所有已保存的星球名称列表
     public static List<string> GetSavedPlanetNames()
     {
+        // 如果目录不存在，返回空列表
         if (!Directory.Exists(SaveFolder)) return new List<string>();
 
-        // 获取文件夹下所有 .json 文件
         DirectoryInfo info = new DirectoryInfo(SaveFolder);
+        // 获取所有 .json 文件
         FileInfo[] files = info.GetFiles("*.json");
 
-        // 只返回文件名（不带后缀），方便 UI 显示
         return files.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToList();
     }
 }
