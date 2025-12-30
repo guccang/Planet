@@ -18,6 +18,8 @@ public class Planet : MonoBehaviour
     public bool shapeSettingsFoldout;
     [HideInInspector]
     public bool colourSettingsFoldout;
+    [HideInInspector]
+    public string selectedPlanetName;
 
     public ShapeSettings shapeSettings;
     public ColourSettings colourSettings;
@@ -100,6 +102,35 @@ public class Planet : MonoBehaviour
                 terrainFaces[i].UpdateUVs(colourGenerate);
             }
         }
+    }
+
+    // === 新增：加载功能 ===
+    public void LoadConfig(string saveName)
+    {
+        PlanetData data = PlanetSaveSystem.LoadPlanetData(saveName);
+        if (data == null) return;
+
+        // 1. 克隆现有的 Settings，避免修改原始资源文件
+        // 这一点非常重要！必须使用 Instantiate 创建运行时副本
+        ShapeSettings newShapeSettings = Instantiate(shapeSettings);
+        ColourSettings newColorSettings = Instantiate(colourSettings);
+
+        // 2. 使用 JsonUtility 的 "Overwrite" 功能将存档数据覆盖到新副本上
+        JsonUtility.FromJsonOverwrite(data.shapeSettingsJson, newShapeSettings);
+        JsonUtility.FromJsonOverwrite(data.colorSettingsJson, newColorSettings);
+
+        // 3. 重新赋值给当前星球
+        this.shapeSettings = newShapeSettings;
+        this.colourSettings = newColorSettings;
+
+        // 4. 刷新星球生成
+        GeneratePlanet(); 
+    }
+
+    // === 新增：保存功能 ===
+    public void SaveConfig(string saveName)
+    {
+        PlanetSaveSystem.SavePlanet(this, saveName);
     }
 
 }
